@@ -30,15 +30,16 @@ class DebugEditorMenuState extends FlxState
 
 		// Enable only the Scanline shader, since all the others
 		// would most likely mess with development
+		var shaderMode:ShaderModeType = ClientPrefs.getOption('shaderMode');
 		if (ClientPrefs.getOption('editorFilters'))
 		{
-			if (ClientPrefs.getOption('shaderMode') == DEFAULT || ClientPrefs.getOption('shaderMode') == FAST)
+			if (shaderMode == ShaderModeType.DEFAULT || shaderMode == ShaderModeType.FAST)
 			{
-				FlixelUtil.setFilters(MINIMAL);
+				FlixelUtil.setFilters(ShaderModeType.MINIMAL);
 			}
 			else
 			{
-				// This means the user has either FAST, MINIMAL or NONE enabled, so
+				// This means the user has either MINIMAL or NONE enabled, so
 				// we can just leave it be and move on since it won't mess with development
 				// inside of the editors!
 			}

@@ -27,7 +27,7 @@ import js.Browser;
 import sys.io.Process;
 #end
 
-// Directly inject C++ code for 
+// Directly inject C++ code for
 // detecting if caps lock is enabled
 // on Windows/C++ builds
 #if cpp
@@ -139,7 +139,7 @@ final class FlixelUtil
 		switch (mode)
 		{
 			#if ADVANCED_SHADERS_ALLOWED
-			case DEFAULT | null:
+			case ShaderModeType.DEFAULT | null:
 				FlxG.game.setFilters([
 					new ShaderFilter(CacheUtil.vcrBorderShader),
 					new ShaderFilter(CacheUtil.vcrMario85Shader),
@@ -148,19 +148,19 @@ final class FlixelUtil
 					new ShaderFilter(new TiltshiftShader())
 				]);
 			#end
-			case FAST:
+			case ShaderModeType.FAST:
 				FlxG.game.setFilters([
 					new ShaderFilter(CacheUtil.grainShader),
 					new ShaderFilter(new ScanlineShader()),
 					new ShaderFilter(new Hq2xShader()),
 					new ShaderFilter(new TiltshiftShader())
 				]);
-			case MINIMAL:
+			case ShaderModeType.MINIMAL:
 				FlxG.game.setFilters([
-				new ShaderFilter(CacheUtil.grainShader),
+					new ShaderFilter(CacheUtil.grainShader),
 					new ShaderFilter(new Hq2xShader())
 				]);
-			case NONE:
+			case ShaderModeType.NONE:
 				FlxG.game.setFilters([]);
 			default:
 				FlxG.game.setFilters([]);
@@ -498,5 +498,17 @@ final class FlixelUtil
 			Sys.exit(0);
 			#end
 		}
+	}
+
+	/**
+	 * Crashes the game and throws an exception with an error message.
+	 * 
+	 * @param errorMsg The message to be displayed on the error window.
+	 */
+	public static function crashGame(errorMsg:String):Void
+	{
+		LoggerUtil.log(errorMsg, ERROR, false);
+		closeGame(false);
+		throw new Exception(errorMsg);
 	}
 }

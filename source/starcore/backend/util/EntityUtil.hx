@@ -40,7 +40,7 @@ final class EntityUtil
 		for (i in 0...name.length)
 		{
 			var char:String = name.charAt(i);
-			if (!Constants.VALID_ITEM_ENTITY_NAME_CHARACTERS.match(char))
+			if (Constants.VALID_ITEM_ENTITY_NAME_CHARACTERS.indexOf(char) == -1)
 			{
 				return false;
 			}

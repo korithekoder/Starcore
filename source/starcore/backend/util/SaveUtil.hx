@@ -88,7 +88,7 @@ final class SaveUtil
 		progressSave.bind(Constants.PROGRESS_SAVE_BIND_ID, PathUtil.getSavePath());
 
 		// Assign the data
-		// TODO: Add later lol
+		// TODO: Implement saving of user progress data here
 
 		// For checking if the data saved
 		var didProgressSave:Bool = progressSave.flush();
@@ -113,7 +113,7 @@ final class SaveUtil
 		progressSave.bind(Constants.PROGRESS_SAVE_BIND_ID, PathUtil.getSavePath());
 
 		// Assign the data
-		// TODO: Do later :p
+		// TODO: Implement loading of user progress data here
 
 		// Close the bind
 		progressSave.close();

@@ -2,7 +2,6 @@ package;
 
 import flixel.FlxG;
 import flixel.FlxState;
-
 import flixel.math.FlxMath;
 import flixel.system.FlxAssets;
 import flixel.tweens.FlxTween;
@@ -38,7 +37,12 @@ class InitState extends FlxState
 		LoggerUtil.initialize();
 
 		// Log that we are setting up Starcore
-		LoggerUtil.log('INITIALIZING STARCORE SETUP', INFO, false);
+		LoggerUtil.log('INITIALIZING STARCORE SETUP', false);
+
+		// Load all of the player's settings and options.
+		// Note that if this line is not present, it will
+		// cause null errors and crash the game!
+		ClientPrefs.loadAll();
 
 		// Assign and configure Flixel settings
 		configureFlixelSettings();
@@ -49,16 +53,14 @@ class InitState extends FlxState
 		// Add the event listeners
 		addEventListeners();
 
-		// Load all of the player's settings and options
-		// Note that if this line is not present, it will
-		// cause null errors and crash the game!
-		ClientPrefs.loadAll();
-
 		// Register all of the entities that are in the game
 		registerEntities();
 
 		// Start up Discord rich presence
 		DiscordClient.initialize();
+
+		// Log that everything is done setting up
+		LoggerUtil.log('STARCORE SETUP COMPLETE', false);
 
 		// Switch to the main menu state after everything has loaded
 		FlxG.switchState(() -> new MainMenuState());
@@ -97,7 +99,7 @@ class InitState extends FlxState
 
 		// Make the window borderless when it is
 		// not in fullscreen mode
-		// TODO: Figure out how to make it draggable
+		// TODO: Figure out how to make it draggable?
 		#if desktop
 		Application.current.window.borderless = true;
 		#end
@@ -116,6 +118,9 @@ class InitState extends FlxState
 		CacheUtil.vcrMario85Shader = new VCRMario85Shader();
 		#end
 		CacheUtil.grainShader = new GrainShader();
+
+		// Set the shaders based on the user's options
+		FlixelUtil.setFilters(ClientPrefs.getOption('shaderMode'));
 
 		// Configure the event listener for detecting caps lock
 		// if the target is set to HTML5
@@ -152,7 +157,7 @@ class InitState extends FlxState
 		LoggerUtil.log('Adding event listeners');
 
 		#if desktop
-		// Minimize volume when the window is out of focus
+		// Maximize/Minimize volume when the window is gets/loses focus
 		Application.current.window.onFocusIn.add(() ->
 		{
 			// Bring the volume back up when the window is focused again

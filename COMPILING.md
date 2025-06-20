@@ -7,6 +7,10 @@ it has great support for HaxeFlixel!
 your notifications. Make sure to ***NOT*** ignore those and download those extensions, as 
 they will greatly help you with development!)
 
+> [!IMPORTANT]
+> There is a spell checker extension that comes with the other recommended extensions, we ***STRONGLY*** advise you to
+> install that, since we don't want documentation with bad spelling.
+
 # 2. Running the Setup File
 
 This game uses a programming language/game engine called [HaxeFlixel](https://haxeflixel.com/).

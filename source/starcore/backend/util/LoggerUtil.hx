@@ -1,10 +1,13 @@
 package starcore.backend.util;
 
+import starcore.backend.data.Constants;
 #if LOGGING_ALLOWED
 import haxe.Exception;
 import sys.FileSystem;
 import sys.io.File;
 import sys.io.FileOutput;
+
+using StringTools;
 #end
 
 /**
@@ -50,6 +53,30 @@ final class LoggerUtil
 		if (!FileSystem.exists(logsFolder))
 		{
 			FileSystem.createDirectory(logsFolder);
+		}
+
+		// Get all the .txt log files in the logs folder
+		var files:Array<String> = FileSystem.readDirectory(logsFolder);
+		var logFiles:Array<{name:String, time:Date}> = files.filter(function(f) return f.endsWith('.txt'))
+			.map(function(f) return {name: f, time: FileSystem.stat('$logsFolder/$f').mtime});
+		logFiles.sort(function(a, b) return Reflect.compare(b.time.getTime(), a.time.getTime())); // Newest first
+
+		// Delete the oldest log files if there are more than the
+		// set maximum allowed
+		var maxFiles:Int = Constants.MAX_LOG_FILES_LIMIT - 1; // -1 for the current log file
+		if (logFiles.length > maxFiles)
+		{
+			for (i in maxFiles...logFiles.length)
+			{
+				try
+				{
+					FileSystem.deleteFile('$logsFolder/${logFiles[i].name}');
+				}
+				catch (e:Exception)
+				{
+					LoggerUtil.log('Failed to delete old log file: ${logFiles[i].name}', WARNING, false);
+				}
+			}
 		}
 
 		// Create the new log file

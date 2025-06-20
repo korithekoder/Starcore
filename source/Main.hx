@@ -19,10 +19,10 @@ class Main extends Sprite
 	// for the FlxGame instance
 	var game:Dynamic = {
 		// The width of the game's window
-		// You can set this to 0 to use the default value in the Project.xml file
+		// You can set this to 0 to use the default value in the project.hxp file
 		width: 960,
 		// The height of the game's window
-		// You can set this to 0 to use the default value in the Project.xml file
+		// You can set this to 0 to use the default value in the project.hxp file
 		height: 720,
 		// The class that will be used as the initial state
 		initialState: InitState,

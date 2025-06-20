@@ -185,7 +185,7 @@ Apache License
 
    END OF TERMS AND CONDITIONS
 
-   Copyright 2025 Kori Box
+   Copyright 2025 Starcore Dev Team
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.

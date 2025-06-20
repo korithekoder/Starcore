@@ -9,17 +9,32 @@ import starcore.backend.util.PathUtil;
  */
 class GrayscaleShader extends FlxRuntimeShader
 {
-	public var amount:Float = 1;
+	/**
+	 * The amount of grayscale to apply.
+	 * 
+	 * 0 = No grayscale, 1 = Full grayscale.
+	 */
+	public var amount(default, set):Float = 1;
 
+	/**
+	 * @param amount How gray the screen should be. 0 = No grayscale, 1 = Full grayscale.
+	 */
 	public function new(amount:Float = 1)
 	{
 		super(Assets.getText(PathUtil.ofFrag('grayscale')));
 		setAmount(amount);
 	}
 
-	public function setAmount(value:Float):Void
+	function setAmount(value:Float):Void
 	{
 		amount = value;
 		setFloat("_amount", amount);
+	}
+
+	@:noCompletion
+	function set_amount(value:Float):Float
+	{
+		setAmount(value);
+		return value;
 	}
 }

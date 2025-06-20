@@ -1,5 +1,6 @@
 package starcore.menus;
 
+import flixel.tweens.FlxTween;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.transition.FlxTransitionableState;
@@ -83,12 +84,7 @@ class MainMenuState extends FlxTransitionableState
 			coolSwaggerButton.loadGraphic(PathUtil.ofSharedImage('menus/main/$btn-button'));
 			coolSwaggerButton.scale.set(4, 4);
 			coolSwaggerButton.updateHitbox();
-			coolSwaggerButton.behavior.updateHoverBounds(
-				coolSwaggerButton.x,
-				coolSwaggerButton.y,
-				coolSwaggerButton.width,
-				coolSwaggerButton.height
-			);
+			coolSwaggerButton.behavior.updateHoverBounds(coolSwaggerButton.x, coolSwaggerButton.y, coolSwaggerButton.width, coolSwaggerButton.height);
 			coolSwaggerButton.setPosition(0, newY);
 			coolSwaggerButton.behavior.onClick = buttonClickFunctions.get(btn);
 			coolSwaggerButton.behavior.onHover = () ->
@@ -108,8 +104,9 @@ class MainMenuState extends FlxTransitionableState
 		}
 
 		// Slowly bring up the volume for the music
-		// FlxTween.num(0, 1, 3, { type: FlxTweenType.ONESHOT }, (v) -> {
-		//     FlxG.sound.music.volume = v;
+		// FlxTween.num(0, 1, 3, {type: FlxTweenType.ONESHOT}, (v) ->
+		// {
+		// 	FlxG.sound.music.volume = v;
 		// });
 	}
 

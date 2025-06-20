@@ -25,7 +25,7 @@ class Project extends HXProject
 	 * REMEMBER TO CHANGE THIS WHEN THE GAME UPDATES!
 	 * You only have to change it here, the rest of the game will query this value.
 	 */
-	static final VERSION:String = '0.1.0-prealpha';
+	static final VERSION:String = '0.1.0-demo';
 
 	/**
 	 * The game's name. Used as the default window title.
@@ -52,7 +52,7 @@ class Project extends HXProject
 	/**
 	 * A package name used for identifying the app on various app stores.
 	 */
-	static final PACKAGE_NAME:String = 'net.korithekoder.starcore';
+	static final PACKAGE_NAME:String = 'net.starcore';
 
 	/**
 	 * The fully qualified class path for the entry point class to execute when launching the game.
@@ -64,7 +64,7 @@ class Project extends HXProject
 	 * The company name for the game.
 	 * This appears as metadata in many places.
 	 */
-	static final COMPANY:String = 'korithekoder';
+	static final COMPANY:String = 'Starcore Dev Team';
 
 	/**
 	 * Path to the Haxe script run before building the game.
@@ -208,7 +208,7 @@ class Project extends HXProject
 		this.window.orientation = (isDesktop() || isMobile()) ? Orientation.LANDSCAPE : Orientation.AUTO;
 		this.window.hardware = true;
 		this.window.vsync = false;
-		this.window.allowHighDPI = true; // Force / allow high DPI
+		this.window.allowHighDPI = true;
 	}
 
 	/**
@@ -452,11 +452,12 @@ class Project extends HXProject
 		addAssetPath('assets/fonts', 'assets/fonts', 'default', ['*.ttf'], []);
 
 		// Add entity assets
-		addAssetPath('assets/entities/data', 'assets/entities/data', 'default', ['*.json'], []);
+		addAssetPath('assets/entities/animations', 'assets/entities/animations', 'default', ['*.json'], []);
+		addAssetPath('assets/entities/metadata', 'assets/entities/metadata', 'default', ['*.json'], []);
 		addAssetPath('assets/entities/textures', 'assets/entities/textures', 'default', ['*.png', '*.xml'], []);
 
 		// Add tile assets
-		addAssetPath('assets/tiles/data', 'assets/tiles/data', 'default', ['*.json'], []);
+		addAssetPath('assets/tiles/metadata', 'assets/tiles/metadata', 'default', ['*.json'], []);
 		addAssetPath('assets/tiles/textures', 'assets/tiles/textures', 'default', ['*.png'], []);
 
 		// Add shared image assets

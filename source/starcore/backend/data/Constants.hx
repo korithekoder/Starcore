@@ -2,7 +2,6 @@ package starcore.backend.data;
 
 import flixel.input.keyboard.FlxKey;
 import flixel.util.FlxColor;
-import starcore.backend.data.ClientPrefs.ShaderModeType;
 import starcore.backend.util.PathUtil;
 
 /**
@@ -10,55 +9,6 @@ import starcore.backend.util.PathUtil;
  */
 final class Constants
 {
-	//
-	// DEFAULTS
-	// =================================
-
-	/**
-	 * The default controls for the player. This is typically used when
-	 * the player wishes to reset all of their binds.
-	 */
-	public static final DEFAULT_CONTROLS_KEYBOARD:Map<String, FlxKey> = [
-		// Movement
-		'mv_up' => W,
-		'mv_left' => A,
-		'mv_down' => S,
-		'mv_right' => D,
-		// UI
-		'ui_left' => LEFT,
-		'ui_down' => DOWN,
-		'ui_up' => UP,
-		'ui_right' => RIGHT,
-		'ui_select' => ENTER,
-		'ui_back' => ESCAPE,
-		// Volume
-		'vl_up' => PLUS,
-		'vl_down' => MINUS,
-		'vl_mute' => F12,
-		// Misc.
-		'ms_fullscreen' => F11,
-		// Debug
-		'db_openeditors' => F7
-	];
-
-	/**
-	 * The default options for the game. These are only really used when
-	 * the player either updated the game ***OR*** is missing anything important.
-	 */
-	public static final DEFAULT_OPTIONS:Map<String, Any> = [
-		// Graphics
-		#if !web
-		'shaderMode' => ShaderModeType.DEFAULT,
-		#else
-		'shaderMode' => ShaderModeType.FAST,
-		#end
-		// Misc.
-		'discordRPC' => true,
-		'minimizeVolume' => true,
-		// Debug
-		'editorFilters' => true
-	];
-
 	//
 	// SAVE BIND ID'S
 	// ======================================
@@ -107,8 +57,17 @@ final class Constants
 	public static final DEBUG_EDITOR_BACKGROUND_COLOR:FlxColor = FlxColor.fromRGB(210, 210, 210);
 
 	//
+	// LOGGING
+	// =======================================
+
+	/**
+	 * The maximum amount of log files that can be stored in the `logs` folder.
+	 */
+	public static final MAX_LOG_FILES_LIMIT:Int = 30;
+
+	//
 	// MUSIC & SOUNDS
-	// =========================================
+	// =====================================================
 
 	/**
 	 * Name of the music that plays when in the main menus.
@@ -122,7 +81,7 @@ final class Constants
 
 	//
 	// BACKGROUND
-	// ============================
+	// ================================
 
 	/**
 	 * How fast background stars scroll in the distance.
@@ -146,17 +105,22 @@ final class Constants
 
 	//
 	// ITEMS & ENTITIES
-	// ====================================
+	// =========================================================
 
 	/**
-	 * A regular expression that holds characters which are valid for
+	 * A `String` that holds characters which are valid for
 	 * creating names for entities and items.
 	 */
-	public static final VALID_ITEM_ENTITY_NAME_CHARACTERS:EReg = ~/[a-z_]/;
+	public static final VALID_ITEM_ENTITY_NAME_CHARACTERS:String = 'abcdefghijklmnopqrstuvwxyz_';
+
+	/**
+	 * The default description for any entity if the description for it is `null` or empty.
+	 */
+	public static final DEFAULT_ENTITY_DESCRIPTION:String = 'This one doesn\'t seem to have a description...';
 
 	//
 	// WORLD
-	// ======================
+	// =================================================
 
 	/**
 	 * How wide in pixels a tile is. This is used for the world tilemap.
@@ -175,7 +139,7 @@ final class Constants
 
 	//
 	// UI
-	// ===========================
+	// =============================================
 
 	/**
 	 * The allowed alphabetic characters that can be added to text in a

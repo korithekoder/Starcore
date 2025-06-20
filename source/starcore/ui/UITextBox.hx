@@ -51,6 +51,7 @@ class UITextBox extends FlxSpriteGroup
 
 		this.textHint = textHint;
 
+		// TODO: Figure out a way to implement CTRL + LEFT/RIGHT instead of ALT + LEFT/RIGHT
 		inputTextObject = new FlxInputText();
 		inputTextObject.text = '';
 		inputTextObject.color = FlxColor.BLACK;
@@ -99,14 +100,7 @@ class UITextBox extends FlxSpriteGroup
 	{
 		super.update(elapsed);
 
-		if (isHoveredOver())
-		{
-			Mouse.cursor = MouseCursor.IBEAM;
-		}
-		else
-		{
-			Mouse.cursor = MouseCursor.ARROW;
-		}
+		// TODO: Figure out an alternative way to show the text cursor when hovered over!
 
 		textHintObject.text = textHint;
 		textHintObject.color = inputTextObject.color;
@@ -119,6 +113,34 @@ class UITextBox extends FlxSpriteGroup
 		textHintObject.letterSpacing = inputTextObject.letterSpacing;
 		textHintObject.setPosition(inputTextObject.x, inputTextObject.y);
 	}
+
+	//
+	// GETTERS & SETTERS
+	// =================================================
+
+	/**
+	 * Gets the value of `this` input text's value.
+	 * 
+	 * @param defaultValue The value to return if the text for the input text field is empty.
+	 * @return             The text of `this` input text as a `String` (or as a
+	 *                     `Float` if the filter mode is set to `FlxInputTextFilterMode.NUMERIC`).
+	 */
+	public function getValue(defaultValue:Dynamic):Dynamic
+	{
+		var text:String = inputTextObject.text;
+		if (text != '')
+		{
+			return (inputTextObject.filterMode != NUMERIC) ? text : Std.parseFloat(text);
+		}
+		else
+		{
+			return defaultValue;
+		}
+	}
+
+	//
+	// UTIL FUNCTIONS
+	// =============================================
 
 	inline function isHoveredOver():Bool
 	{

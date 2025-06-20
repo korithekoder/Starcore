@@ -25,6 +25,12 @@ If your comments have typos, aren't clear or concise, or just
 hard to understand in general, then they won't be any
 use. Even too many comments can make it difficult to understand your code.
 
+For doc comments, it's generally not advised to create them for
+private variables/functions/typedefs/etc., since they can only be accessed
+in the class or file they were made in; however, if there is a private attribute that
+you feel needs explaining, go ahead and document it! More likely than not we'll accept
+the change, since we (clearly) really value documentation.
+
 ### Example of GOOD Comments (With Good Formatting)
 
 ```haxe
@@ -89,22 +95,26 @@ function getLastpressed():FlxKey
 ```
 
 > [!TIP]
-> You can format a file on VS Code with `SHIFT` + `ALT` + `F` to match the code style standards, although just know that it won't fix typos or correct your grammar, thats all on you!
+> You can format a file on VS Code with `SHIFT` + `ALT` + `F` to match the code style standards, 
+> although just know that it won't fix typos or correct your grammar, thats all on you!
 
 ## Things You CANNOT Do
 
-Excluding *collaborators*, there are some files that contributors simply cannot change or delete.
+1. Excluding *collaborators*, there are some files that contributors simply cannot change or delete.
 
-1. You are not allowed to change these files:
-    - Any files in the [setup folder](setup/).
-    - Any files in the [unused folder](unused/), that's for the collaborators!
-    - `.gitattributes`
-    - `.gitignore`
-    - `.prettier.js`
-    - `checkstyle.json`
-    - `COMPILING.md`
-    - `CONTRIBUTING.md`
-    - `hxformat.json`
-    - `LICENSE.md`
-    - `project.hxp`
-    - `README.md`
+    - You are not allowed to change these files:
+        - Any files in the [.vscode folder](.vscode/) (unless you want to add a new word to filter the spell checker,
+          do so by adding a word to the list in the `cSpell.words` array inside of `settings.json` file).
+        - Any files in the [setup folder](setup/).
+        - Any files in the [unused folder](unused/), that's for the collaborators!
+        - [`.gitattributes`](.gitattributes/)
+        - [`.gitignore`](.gitignore/)
+        - [`.prettierignore`](.prettierignore/)
+        - [`.prettierrc.js`](.prettierrc.js/)
+        - [`checkstyle.json`](checkstyle.json/)
+        - [`COMPILING.md`](COMPILING.md/)
+        - [`CONTRIBUTING.md`](CONTRIBUTING.md/)
+        - [`hxformat.json`](hxformat.json/)
+        - [`LICENSE.md`](LICENSE.md/)
+        - [`project.hxp`](project.hxp/)
+        - [`README.md`](README.md/)
