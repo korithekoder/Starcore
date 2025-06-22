@@ -1,24 +1,37 @@
 package starcore.debug.objects;
 
+import starcore.ui.UIClickableSprite;
+import flixel.FlxSprite;
+import flixel.group.FlxSpriteGroup;
+import flixel.util.FlxColor;
 import starcore.backend.data.Constants;
 import starcore.ui.UITextBox;
-import flixel.util.FlxColor;
-import flixel.group.FlxSpriteGroup;
-import flixel.FlxSprite;
 
 /**
  * Options for a new entity part banner object.
  */
 typedef EntityPartBannerOptions =
 {
+	/**
+	 * The x position of the banner.
+	 */
 	var x:Float;
+
+	/**
+	 * The y position of the banner.
+	 */
 	var y:Float;
 
+	/**
+	 * The scale of the banner.
+	 * If `null` is assigned, then it defaults to 1.
+	 */
 	@:optional var scale:Int;
 }
 
 /**
  * Debug object for showing a banner of info on an entity part.
+ * This is only used in the entity creation editor.
  */
 class EntityPartBanner extends FlxSpriteGroup
 {
@@ -29,7 +42,7 @@ class EntityPartBanner extends FlxSpriteGroup
 	/**
 	 * The background, what else?
 	 */
-	public var bg:FlxSprite;
+	public var bg:UIClickableSprite;
 
 	var idTextbox:UITextBox;
 
@@ -50,6 +63,11 @@ class EntityPartBanner extends FlxSpriteGroup
 	public var entitySpriteSheetPaths:Array<String> = [];
 
 	/**
+	 * Is this entity part banner focused?
+	 */
+	public var isFocused:Bool = false;
+
+	/**
 	 * @param options The options for the new entity part banner. 
 	 */
 	public function new(options:EntityPartBannerOptions)
@@ -58,14 +76,18 @@ class EntityPartBanner extends FlxSpriteGroup
 
 		var scale:Int = (options.scale != null) ? options.scale : 1;
 
-		bg = new FlxSprite();
+		bg = new UIClickableSprite();
 		bg.makeGraphic(300, 100, FlxColor.fromRGB(220, 220, 220));
 		bg.scale.set(scale, scale);
 		bg.updateHitbox();
 		bg.setPosition(options.x, options.y);
+		bg.behavior.onClick = () -> {
+			isFocused = true;
+			bg.color = FlxColor.fromRGB(255, 255, 255);
+		};
 		add(bg);
 
-		idTextbox = new UITextBox(bg.x + 8, bg.y + 3, 100, 16, null, 'ex: head');
+		idTextbox = new UITextBox(bg.x + 8, bg.y + 3, 100, 16, Constants.DEBUG_EDITOR_FONT, 'ex: head');
 		idTextbox.inputTextObject.filterMode = FlxInputTextFilterMode.CHARS(Constants.VALID_ITEM_ENTITY_NAME_CHARACTERS);
 		idTextbox.scale.set(scale, scale);
 		idTextbox.inputTextObject.onTextChange.add((text:String, _) ->

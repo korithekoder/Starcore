@@ -1,5 +1,6 @@
 package starcore.debug.editors;
 
+import flixel.FlxSprite;
 import starcore.debug.objects.EntityPartBanner;
 import flixel.FlxG;
 import flixel.util.FlxColor;
@@ -38,8 +39,7 @@ typedef EntityData =
 
 	/**
 	 * The way the entity is described in the game.
-	 * If it is `null`, then the default description
-	 * "This one doesn't seem to have a description." will be used.
+	 * If it is `null`, then the default description will be used.
 	 */
 	@:optional var description:String;
 }
@@ -81,12 +81,17 @@ typedef EntityPartData =
 class EntityCreationEditorState extends DebugEditorState
 {
 	var loadSpriteSheetButton:UIClickableText;
+
+	// NOTE: The current path variable doesn't have an extension
+	// at the end of it for the sake of flexibility
 	var currentLoadedPath:String = '';
 
 	var currentEntityData:EntityData = {
 		name: 'New Entity',
 		parts: []
 	};
+
+	var bodyPartDisplay:FlxSprite;
 
 	var test:EntityPartBanner;
 
@@ -104,6 +109,12 @@ class EntityCreationEditorState extends DebugEditorState
 	{
 		test = new EntityPartBanner({x: 100, y: 300});
 		add(test);
+
+		// bodyPartDisplay = new FlxSprite();
+		// bodyPartDisplay.loadGraphic(Constants.UNKNOWN_ENTITY_TEXTURE_PATH);
+		// bodyPartDisplay.scale.set(scale, scale);
+		// bodyPartDisplay.updateHitbox();
+		// bodyPartDisplay.setPosition(bg.x - 8 - bodyPartDisplay.width * scale, bg.y + bg.height / 2 - bodyPartDisplay.height * scale / 2);
 	}
 
 	function createUI():Void

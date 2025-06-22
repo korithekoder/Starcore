@@ -15,7 +15,7 @@ class BackgroundPlanet extends FlxSprite
 	{
 		super();
 		var newScale:Float = FlxG.random.float(4, 7);
-		loadGraphic(PathUtil.ofSharedImage('bg/bg-planet-${FlxG.random.int(1, 2)}'));
+		loadGraphic(PathUtil.ofSharedImage('bg/bg_planet_${FlxG.random.int(1, 2)}'));
 		scale.set(newScale, newScale);
 		updateHitbox();
 		setPosition(FlxG.random.int(0, FlxG.width), FlxG.random.int(0, FlxG.height));

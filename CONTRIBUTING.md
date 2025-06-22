@@ -102,7 +102,7 @@ function getLastpressed():FlxKey
 
 1. Excluding *collaborators*, there are some files that contributors simply cannot change or delete.
 
-    - You are not allowed to change these files:
+    - You are not allowed to change or delete these files:
         - Any files in the [.vscode folder](.vscode/) (unless you want to add a new word to filter the spell checker,
           do so by adding a word to the list in the `cSpell.words` array inside of `settings.json` file).
         - Any files in the [setup folder](setup/).

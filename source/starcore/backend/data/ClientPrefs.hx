@@ -259,7 +259,7 @@ final class ClientPrefs
 		else
 		{
 			options = getDefaultOptions();
-			LoggerUtil.log('No options save was found! Using default options', WARNING);
+			LoggerUtil.log('No options save data was found! Using default options', WARNING);
 		}
 
 		if (controlsData.data.keyboard != null)
@@ -269,7 +269,7 @@ final class ClientPrefs
 		else
 		{
 			controlsKeyboard = getDefaultControls();
-			LoggerUtil.log('No controls save was found! Using default controls', WARNING);
+			LoggerUtil.log('No controls save data was found! Using default controls', WARNING);
 		}
 
 		// Check if the user has any new options

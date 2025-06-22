@@ -12,13 +12,23 @@
   },
   "haxe.enableExtendedIndentation": true,
   "cSpell.words": [
+    "ARMV",
     "borderless",
     "CAPSLOCK",
     "contextmenu",
+    "EMSCRITEN",
+    "flxsoundfilters",
     "GRAVEACCENT",
     "Haxe",
+    "haxedefs",
+    "haxeflag",
+    "haxeflags",
+    "hscript",
+    "HXCPP",
     "IBEAM",
     "keybinds",
+    "MIPSEL",
+    "Neko",
     "NUMPADEIGHT",
     "NUMPADFIVE",
     "NUMPADFOUR",
@@ -35,6 +45,12 @@
     "NUMPADTWO",
     "NUMPADZERO",
     "openeditors",
-    "Tiltshift"
+    "spritesheets",
+    "Tiltshift",
+    "TIZEN",
+    "TVOS",
+    "vsync",
+    "WEBOS",
+    "WIIU"
   ]
 }

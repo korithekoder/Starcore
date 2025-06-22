@@ -38,7 +38,7 @@ final class Constants
 	public static final ENTITY_CREATION_EDITOR_VERSION:String = '0.1.0-PROTOTYPE';
 
 	//
-	// DEBUG EDITORS
+	// DEBUG
 	// ========================================
 
 	/**
@@ -55,6 +55,11 @@ final class Constants
 	 * The default color for any debug editor extending to `starcore.debug.DebugEditorState`.
 	 */
 	public static final DEBUG_EDITOR_BACKGROUND_COLOR:FlxColor = FlxColor.fromRGB(210, 210, 210);
+
+	/**
+	 * Pathway to the image that's used in place for a missing texture.
+	 */
+	public static final UNKNOWN_ENTITY_TEXTURE_PATH:String = PathUtil.ofSharedImage('debug/unknown_entity.png');
 
 	//
 	// LOGGING

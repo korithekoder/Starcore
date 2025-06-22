@@ -81,12 +81,12 @@ final class FlixelUtil
 		#if SOUND_FILTERS_ALLOWED
 		if (!(CacheUtil.currentReverbSoundsAmount >= Constants.REVERB_SOUND_EFFECT_LIMIT))
 		{
-			// Make the sound and filter
 			var sound:FlxFilteredSound = new FlxFilteredSound();
 			var effect:FlxSoundReverbEffect = new FlxSoundReverbEffect();
-			// Settings for the echo
+
+			// Settings for the reverb
 			effect.decayTime = decayTime;
-			// Load the sound
+
 			sound.loadEmbedded(path);
 			sound.filter = new FlxSoundFilter();
 			sound.filter.addEffect(effect);
@@ -94,7 +94,7 @@ final class FlixelUtil
 			// gets lowered when the game loses focus and
 			// the user has 'minimizeVolume' enabled
 			FlxG.sound.list.add(sound);
-			// Play the sound
+
 			sound.play();
 			CacheUtil.currentReverbSoundsAmount++;
 			// Recycle the sound after it finishes playing
@@ -124,6 +124,27 @@ final class FlixelUtil
 		{
 			FlxG.sound.playMusic(PathUtil.ofSharedMusic(Constants.MENU_MUSIC_NAME), volume, true);
 			CacheUtil.canPlayMenuMusic = false;
+		}
+	}
+
+	/**
+	 * Stops all sounds that are currently playing.
+	 * 
+	 * @param stopMusic Should the music be stopped as well? Default value is `true`.
+	 */
+	public static function stopAllSounds(stopMusic:Bool = true):Void
+	{
+		if (FlxG.sound.music != null && FlxG.sound.music.exists && stopMusic)
+		{
+			FlxG.sound.music.stop();
+		}
+
+		for (sound in FlxG.sound.list.members)
+		{
+			if (sound != null && sound.exists)
+			{
+				sound.stop();
+			}
 		}
 	}
 

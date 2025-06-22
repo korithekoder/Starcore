@@ -44,6 +44,8 @@ class InitState extends FlxState
 		// cause null errors and crash the game!
 		ClientPrefs.loadAll();
 
+		// TODO: Add a small loading screen here!
+
 		// Assign and configure Flixel settings
 		configureFlixelSettings();
 
@@ -89,6 +91,9 @@ class InitState extends FlxState
 
 		// Set the default font
 		FlxAssets.FONT_DEFAULT = PathUtil.ofFont('Born2bSportyFS');
+
+		// Set the default sound extension based on the target platform
+		FlxAssets.defaultSoundExtension = #if !web 'mp3' #else 'ogg' #end;
 
 		// Set the stage quality
 		#if !web

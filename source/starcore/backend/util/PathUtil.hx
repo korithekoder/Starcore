@@ -1,5 +1,6 @@
 package starcore.backend.util;
 
+import flixel.system.FlxAssets;
 import flixel.FlxG;
 
 /**
@@ -50,7 +51,7 @@ final class PathUtil
 	 */
 	public static inline function ofSharedSound(name:String):String
 	{
-		return 'assets/shared/sounds/$name${#if html5 '.mp3' #else '.ogg' #end}';
+		return 'assets/shared/sounds/$name.${FlxAssets.defaultSoundExtension}';
 	}
 
 	/**
@@ -61,7 +62,7 @@ final class PathUtil
 	 */
 	public static inline function ofSharedMusic(name:String):String
 	{
-		return 'assets/shared/music/$name${#if html5 '.mp3' #else '.ogg' #end}';
+		return 'assets/shared/music/$name.${FlxAssets.defaultSoundExtension}';
 	}
 
 	/**

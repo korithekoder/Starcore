@@ -5,7 +5,7 @@ import haxe.Json;
 import openfl.utils.Assets;
 
 /**
- * Utility class for obtaining and manipulating data in files or variables.
+ * Utility class for obtaining and manipulating data from files.
  */
 final class AssetUtil
 {
@@ -35,7 +35,7 @@ final class AssetUtil
 		var result:StringBuf = new StringBuf();
 		for (_ in 0...chars.length)
 		{
-			var index = Std.int(Math.random() * chars.length);
+			var index:Int = Std.int(Math.random() * chars.length);
 			result.add(chars.charAt(index));
 		}
 		return result.toString();

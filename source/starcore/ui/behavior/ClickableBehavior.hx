@@ -16,6 +16,12 @@ class ClickableBehavior
 	public var onClick:Void->Void = () -> {};
 
 	/**
+	 * Called when `this` clickable object gets clicked
+	 * outside of its hover bounds while being focused.
+	 */
+	public var onUnclick:Void->Void = () -> {};
+
+	/**
 	 * Called when `this` clickable object is hovered on.
 	 */
 	public var onHover:Void->Void = () -> {};
@@ -52,7 +58,7 @@ class ClickableBehavior
 	public var isHovered:Bool = false;
 
 	/**
-	 * Is it allowed to click `this` object?
+	 * Is the user allowed to click `this` object?
 	 */
 	public var canClick:Bool = true;
 
@@ -64,6 +70,11 @@ class ClickableBehavior
 	 * `true`, otherwise this will be ignored.
 	 */
 	public var hoverCursor:MouseCursor = MouseCursor.BUTTON;
+
+	/**
+	 * Is `this` clickable object focused?
+	 */
+	public var isFocused:Bool = false;
 
 	/**
 	 * Should `this` clickable object change to the
@@ -89,7 +100,7 @@ class ClickableBehavior
 	 */
 	public function update(x:Float, y:Float, width:Float, height:Float):Void
 	{
-		if (isHoveringOverMouse() && canClick)
+		if (isHoveringOverMouse())
 		{
 			if (!isHovered)
 			{
@@ -107,8 +118,14 @@ class ClickableBehavior
 				{
 					Mouse.cursor = MouseCursor.ARROW;
 				}
+				isFocused = true;
 				onClick();
 			}
+		}
+		else if (FlxG.mouse.justPressed && isFocused)
+		{
+			isFocused = false;
+			onUnclick();
 		}
 
 		if (!isHoveringOverMouse() && isHovered)

@@ -81,7 +81,7 @@ class MainMenuState extends FlxTransitionableState
 		for (btn in buttons)
 		{
 			var coolSwaggerButton:UIClickableSprite = new UIClickableSprite();
-			coolSwaggerButton.loadGraphic(PathUtil.ofSharedImage('menus/main/$btn-button'));
+			coolSwaggerButton.loadGraphic(PathUtil.ofSharedImage('menus/main/${btn}_button'));
 			coolSwaggerButton.scale.set(4, 4);
 			coolSwaggerButton.updateHitbox();
 			coolSwaggerButton.behavior.updateHoverBounds(coolSwaggerButton.x, coolSwaggerButton.y, coolSwaggerButton.width, coolSwaggerButton.height);
