@@ -189,7 +189,7 @@ final class FlixelUtil
 	}
 
 	/**
-	 * Get's the last key that was pressed on the current frame.
+	 * Gets the last key that was pressed on the current frame.
 	 * 
 	 * @return The last key that was pressed. If no keys were pressed, then
 	 *         `FlxKey.NONE` is returned instead.
@@ -214,7 +214,7 @@ final class FlixelUtil
 	}
 
 	/**
-	 * Get's the current keys that were just pressed on the current frame.
+	 * Gets the current keys that were just pressed on the current frame.
 	 * 
 	 * @return All `FlxKey`s that were just pressed. If no keys were pressed, then
 	 *         an empty array (`[]`) is returned instead.
@@ -240,7 +240,7 @@ final class FlixelUtil
 	}
 
 	/**
-	 * Get's the current keys that are held down on the current frame.
+	 * Gets the current keys that are held down on the current frame.
 	 * 
 	 * @return All `FlxKey`s that are currently held down. If no keys are pressed, then
 	 *         an empty array (`[]`) is returned instead.
