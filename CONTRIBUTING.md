@@ -35,7 +35,7 @@ the change, since we (clearly) really value documentation.
 
 ```haxe
 /**
- * Get's the last key that was pressed on the current frame.
+ * Gets the last key that was pressed on the current frame.
  * 
  * @return The last key that was pressed. If no keys were pressed, then
  *         `FlxKey.NONE` is returned instead.
