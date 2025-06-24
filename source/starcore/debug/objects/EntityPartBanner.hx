@@ -1,7 +1,7 @@
 package starcore.debug.objects;
 
-import starcore.ui.UIClickableSprite;
 import flixel.FlxSprite;
+import starcore.ui.UIClickableSprite;
 import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxColor;
 import starcore.backend.data.Constants;
@@ -44,6 +44,8 @@ class EntityPartBanner extends FlxSpriteGroup
 	 */
 	public var bg:UIClickableSprite;
 
+	var outlineBg:FlxSprite;
+
 	var idTextbox:UITextBox;
 
 	//
@@ -54,13 +56,6 @@ class EntityPartBanner extends FlxSpriteGroup
 	 * The ID of the body part.
 	 */
 	public var id(get, null):String;
-
-	/**
-	 * The pathways to the sprite sheet `.png` and `.xml` to obtain body part textures from.
-	 * 
-	 * First element is to the `.png` image file, second is to the `.xml` file.
-	 */
-	public var entitySpriteSheetPaths:Array<String> = [];
 
 	/**
 	 * Is this entity part banner focused?
@@ -81,10 +76,13 @@ class EntityPartBanner extends FlxSpriteGroup
 		bg.scale.set(scale, scale);
 		bg.updateHitbox();
 		bg.setPosition(options.x, options.y);
+		bg.behavior.displayHoverCursor = false;
 		bg.behavior.onClick = () -> {
 			isFocused = true;
-			bg.color = FlxColor.fromRGB(255, 255, 255);
 		};
+		bg.behavior.onUnclick = () -> {
+			trace('bing bong');
+		}
 		add(bg);
 
 		idTextbox = new UITextBox(bg.x + 8, bg.y + 3, 100, 16, Constants.DEBUG_EDITOR_FONT, 'ex: head');

@@ -1,8 +1,12 @@
 package starcore.debug.editors;
 
-import flixel.FlxSprite;
-import starcore.debug.objects.EntityPartBanner;
+import flixel.tweens.FlxTween;
+import starcore.backend.util.DataUtil;
+import starcore.ui.UIClickableSprite;
+import flixel.group.FlxSpriteGroup;
+import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.FlxG;
+import flixel.FlxSprite;
 import flixel.util.FlxColor;
 import lime.app.Event;
 import lime.ui.FileDialog;
@@ -12,6 +16,7 @@ import starcore.backend.data.Constants;
 import starcore.backend.util.AssetUtil;
 import starcore.backend.util.LoggerUtil;
 import starcore.backend.util.PathUtil;
+import starcore.debug.objects.EntityPartBanner;
 import starcore.ui.UIClickableText;
 
 using StringTools;
@@ -85,6 +90,8 @@ class EntityCreationEditorState extends DebugEditorState
 	// NOTE: The current path variable doesn't have an extension
 	// at the end of it for the sake of flexibility
 	var currentLoadedPath:String = '';
+	// 0 = .png file, 1 = .xml file
+	var entitySpriteSheetPaths:Array<String> = [];
 
 	var currentEntityData:EntityData = {
 		name: 'New Entity',
@@ -92,8 +99,9 @@ class EntityCreationEditorState extends DebugEditorState
 	};
 
 	var bodyPartDisplay:FlxSprite;
+	var bodyPartBanners:FlxSpriteGroup;
 
-	var test:EntityPartBanner;
+	var addRemoveButtons:FlxSpriteGroup;
 
 	//
 	// METHOD OVERRIDES
@@ -102,19 +110,57 @@ class EntityCreationEditorState extends DebugEditorState
 	override function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
-		test.entitySpriteSheetPaths = ['$currentLoadedPath.png', '$currentLoadedPath.xml'];
+		entitySpriteSheetPaths = ['$currentLoadedPath.png', '$currentLoadedPath.xml'];
+
+		setBodyPartDisplay();
 	}
 
 	function createStage():Void
 	{
-		test = new EntityPartBanner({x: 100, y: 300});
-		add(test);
+		bodyPartBanners = new FlxSpriteGroup();
+		add(bodyPartBanners);
 
-		// bodyPartDisplay = new FlxSprite();
-		// bodyPartDisplay.loadGraphic(Constants.UNKNOWN_ENTITY_TEXTURE_PATH);
-		// bodyPartDisplay.scale.set(scale, scale);
-		// bodyPartDisplay.updateHitbox();
-		// bodyPartDisplay.setPosition(bg.x - 8 - bodyPartDisplay.width * scale, bg.y + bg.height / 2 - bodyPartDisplay.height * scale / 2);
+		addRemoveButtons = new FlxSpriteGroup();
+		add(addRemoveButtons);
+
+		var addButton:UIClickableSprite = new UIClickableSprite();
+		addButton.loadGraphic(PathUtil.ofSharedImage('ui/add'));
+		addButton.scale.set(3, 3);
+		addButton.updateHitbox();
+		addButton.setPosition(40, 110);
+		addButton.behavior.hoverSound = PathUtil.ofSharedSound('blip');
+		addButton.behavior.clickSound = PathUtil.ofSharedSound('click');
+		addButton.behavior.onClick = () -> {
+			addBodyPartBanner();
+		};
+		addButton.behavior.resetCursorOnClick = false;
+		addRemoveButtons.add(addButton);
+
+		var removeButton:UIClickableSprite = new UIClickableSprite();
+		removeButton.loadGraphic(PathUtil.ofSharedImage('ui/remove'));
+		removeButton.scale.set(3, 3);
+		removeButton.updateHitbox();
+		removeButton.setPosition(40, addButton.y + addButton.height + 15);
+		removeButton.behavior.hoverSound = PathUtil.ofSharedSound('blip');
+		removeButton.behavior.onClick = () -> {
+			if (bodyPartBanners.length > 0)
+			{
+				bodyPartBanners.remove(bodyPartBanners.members[bodyPartBanners.length - 1], true);
+				FlxG.sound.play(PathUtil.ofSharedSound('click')); // Plays sound here instead in case there isn't any banners left
+			}
+			else
+			{
+				FlxTween.shake(removeButton, 0.08, 0.05);
+				FlxG.sound.play(PathUtil.ofSharedSound('nope'));
+			}
+		}
+		removeButton.behavior.resetCursorOnClick = false;
+		addRemoveButtons.add(removeButton);
+
+		bodyPartDisplay = new FlxSprite();
+		bodyPartDisplay.loadGraphic(Constants.UNKNOWN_TEXTURE_PATH);
+		updateBodyPartPos();
+		add(bodyPartDisplay);
 	}
 
 	function createUI():Void
@@ -197,5 +243,48 @@ class EntityCreationEditorState extends DebugEditorState
 		});
 		dialog.onSelect = onSelectEvent;
 		dialog.browse(FileDialogType.OPEN, 'png', null, 'Open a sprite sheet');
+	}
+
+	//
+	// UTILITY FUNCTIONS
+	// ========================================
+
+	function addBodyPartBanner():Void
+	{
+		// For correctly calculating the position of the new banner
+		// based on the banner's height
+		var lastBanner:EntityPartBanner = bodyPartBanners.members.length > 0 ? cast bodyPartBanners.members[bodyPartBanners.length - 1] : null;
+		var newY:Float = (lastBanner != null) ? lastBanner.bg.height : 0;
+		var banner:EntityPartBanner = new EntityPartBanner({x: 175, y: 300 + newY + (bodyPartBanners.length * 50)});
+		bodyPartBanners.add(banner);
+	}
+
+	function setBodyPartDisplay():Void
+	{
+		if (entitySpriteSheetPaths.length < 2)
+		{
+			return;
+		}
+
+		if (Assets.exists(entitySpriteSheetPaths[0]) && Assets.exists(entitySpriteSheetPaths[1]))
+		{
+			bodyPartDisplay.loadGraphic(entitySpriteSheetPaths[0], true);
+			bodyPartDisplay.frames = FlxAtlasFrames.fromSparrow(entitySpriteSheetPaths[0], entitySpriteSheetPaths[1]);
+			// bodyPartDisplay.animation.addByIndices('icon', '${test.id}_', [0], '', 0, false);
+			bodyPartDisplay.animation.play('icon');
+			updateBodyPartPos();
+		}
+		else
+		{
+			bodyPartDisplay.loadGraphic(Constants.UNKNOWN_TEXTURE_PATH);
+			updateBodyPartPos();
+		}
+	}
+
+	function updateBodyPartPos():Void
+	{
+		bodyPartDisplay.scale.set(4, 4);
+		bodyPartDisplay.updateHitbox();
+		bodyPartDisplay.setPosition((FlxG.width - bodyPartDisplay.width) - 50, (FlxG.height / 2) - (bodyPartDisplay.height / 2));
 	}
 }

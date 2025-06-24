@@ -59,7 +59,7 @@ final class Constants
 	/**
 	 * Pathway to the image that's used in place for a missing texture.
 	 */
-	public static final UNKNOWN_ENTITY_TEXTURE_PATH:String = PathUtil.ofSharedImage('debug/unknown_entity.png');
+	public static final UNKNOWN_TEXTURE_PATH:String = PathUtil.ofSharedImage('debug/unknown_texture');
 
 	//
 	// LOGGING

@@ -1,5 +1,6 @@
 package starcore.menus;
 
+import starcore.backend.util.LoggerUtil;
 import flixel.tweens.FlxTween;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -117,6 +118,7 @@ class MainMenuState extends FlxTransitionableState
 		#if DEBUG_EDITORS_ALLOWED
 		if (Controls.getBinds().DB_OPENEDITORS_JUST_PRESSED)
 		{
+			LoggerUtil.log('Opening debug editor menu state');
 			FlxG.sound.music.stop();
 			FlxG.sound.playMusic(PathUtil.ofSharedMusic(Constants.DEBUG_EDITOR_MUSIC_NAME), 0.15);
 			FlxG.switchState(() -> new DebugEditorMenuState());

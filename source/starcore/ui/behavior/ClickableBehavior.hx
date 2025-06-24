@@ -88,6 +88,16 @@ class ClickableBehavior
 	 */
 	public var resetCursorOnClick:Bool = true;
 
+	/**
+	 * The sound that plays when `this` clickable object is hovered on.
+	 */
+	public var hoverSound:String = null;
+
+	/**
+	 * The sound that plays when `this` clickable object is clicked on.
+	 */
+	public var clickSound:String = null;
+
 	public function new() {}
 
 	/**
@@ -104,12 +114,16 @@ class ClickableBehavior
 		{
 			if (!isHovered)
 			{
-				onHover();
 				if (displayHoverCursor)
 				{
 					Mouse.cursor = hoverCursor;
 				}
 				isHovered = true;
+				onHover();
+				if (hoverSound != '' && hoverSound != null)
+				{
+					FlxG.sound.play(hoverSound);
+				}
 			}
 
 			if (FlxG.mouse.justPressed)
@@ -120,6 +134,10 @@ class ClickableBehavior
 				}
 				isFocused = true;
 				onClick();
+				if (clickSound != '' && clickSound != null)
+				{
+					FlxG.sound.play(clickSound);
+				}
 			}
 		}
 		else if (FlxG.mouse.justPressed && isFocused)

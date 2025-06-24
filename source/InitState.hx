@@ -21,8 +21,8 @@ import starcore.shaders.*;
 import js.Browser;
 #end
 #if (web && debug)
-import starcore.backend.util.SaveUtil;
 import openfl.events.KeyboardEvent;
+import starcore.backend.util.SaveUtil;
 #end
 
 /**
@@ -93,7 +93,7 @@ class InitState extends FlxState
 		FlxAssets.FONT_DEFAULT = PathUtil.ofFont('Born2bSportyFS');
 
 		// Set the default sound extension based on the target platform
-		FlxAssets.defaultSoundExtension = #if !web 'mp3' #else 'ogg' #end;
+		FlxAssets.defaultSoundExtension = #if web 'mp3' #else 'ogg' #end;
 
 		// Set the stage quality
 		#if !web

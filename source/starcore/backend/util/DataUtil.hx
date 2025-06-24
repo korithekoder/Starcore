@@ -127,4 +127,23 @@ final class DataUtil
 	{
 		return (Reflect.hasField(object, field)) ? Reflect.field(object, field) : defaultValue;
 	}
+
+	/**
+	 * Cleans an array by removing all `null` values from it.
+	 * 
+	 * @param array The array to clean.
+	 * @return      The cleaned array.
+	 */
+	public static function cleanArray(array:Array<Any>):Array<Any>
+	{
+		var toReturn:Array<Any> = [];
+		for (item in array)
+		{
+			if (item != null)
+			{
+				toReturn.push(item);
+			}
+		}
+		return toReturn;
+	}
 }

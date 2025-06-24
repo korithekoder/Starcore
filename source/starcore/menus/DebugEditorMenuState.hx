@@ -1,5 +1,6 @@
 package starcore.menus;
 
+import starcore.backend.util.LoggerUtil;
 import starcore.backend.util.FlixelUtil;
 import starcore.debug.editors.EntityCreationEditorState;
 import flixel.FlxG;
@@ -84,6 +85,7 @@ class DebugEditorMenuState extends FlxState
 		{
 			// Switch back the shaders, since we're going
 			// back into the main game
+			LoggerUtil.log('Switching back to the base game');
 			FlixelUtil.setFilters(ClientPrefs.getOption('shaderMode'));
 			FlxG.switchState(() -> new MainMenuState());
 		}
